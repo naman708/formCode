@@ -1,6 +1,9 @@
-const aI=document.getElementsByTagName('li');
-aI[2].style.backgroundColor='green';
-for(let i=0;i<aI.length;i++)
+const li=document.querySelectorAll('li')
+li[1].style.backgroundColor='green';
+li[2].style.visibility='hidden';
+li[1].style.color='green';
+const odd=document.querySelectorAll('li:nth-child(odd)')
+for(let i=0;i<odd.length;i++)
 {
-    aI[i].style.fontWeight='bold';
+    odd[i].style.backgroundColor='green';
 }
