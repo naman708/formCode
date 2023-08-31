@@ -1,9 +1,14 @@
-const li=document.querySelectorAll('li')
-li[1].style.backgroundColor='green';
-li[2].style.visibility='hidden';
-li[1].style.color='green';
-const odd=document.querySelectorAll('li:nth-child(odd)')
-for(let i=0;i<odd.length;i++)
-{
-    odd[i].style.backgroundColor='green';
-}
+const newDiv=document.createElement('Div');
+newDiv.setAttribute('title','helloDiv');
+const newTextNode=document.createTextNode('Hello');
+newDiv.appendChild(newTextNode);
+const container=document.querySelector('header .container');
+const h1=document.querySelector('h1');
+container.insertBefore(newDiv,h1);
+const newDiv1=document.createElement('Div');
+newDiv1.setAttribute('title','helloDiv');
+const newTextNode1=document.createTextNode('Hello');
+newDiv1.appendChild(newTextNode1);
+const ul=document.querySelector('ul');
+const li=document.querySelector('li:first-child');
+ul.insertBefore(newDiv1,li);
