@@ -5,14 +5,19 @@ const pH=document.getElementById('phno');
 const Date1=document.getElementById('date');
 const Time=document.getElementById('time');
 
+const user={
+    Name:`${Fname.value}`,
+    Email:`${Email.value}`,
+    PhoneNo:`${pH.value}`,
+    Date:`${Date1.value}`,
+    Time:`${Time.value}`,
+
+}
 Form.addEventListener('submit',storeData);
 
 function storeData(e){
     e.preventDefault();
-
-    localStorage.setItem('Name',`${Fname.value}`);
-    localStorage.setItem('Email',`${Email.value}`);
-    localStorage.setItem('PhoneNo',`${pH.value}`);
-    localStorage.setItem('Date',`${Date1.value}`);
-    localStorage.setItem('Time',`${Time.value}`);
+const userJson=JSON.stringify(user);
+localStorage.setItem('UserDetails',userJson);
+const storedUserDetails = JSON.parse(userJson);
 }
