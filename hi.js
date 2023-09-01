@@ -1,14 +1,29 @@
-const newDiv=document.createElement('Div');
-newDiv.setAttribute('title','helloDiv');
-const newTextNode=document.createTextNode('Hello');
-newDiv.appendChild(newTextNode);
-const container=document.querySelector('header .container');
-const h1=document.querySelector('h1');
-container.insertBefore(newDiv,h1);
-const newDiv1=document.createElement('Div');
-newDiv1.setAttribute('title','helloDiv');
-const newTextNode1=document.createTextNode('Hello');
-newDiv1.appendChild(newTextNode1);
-const ul=document.querySelector('ul');
-const li=document.querySelector('li:first-child');
-ul.insertBefore(newDiv1,li);
+const form=document.getElementById('addForm');
+const itemList=document.getElementById('items');
+const Input=document.getElementById('item');
+
+form.addEventListener('submit',addItems);
+itemList.addEventListener('click',delItems);
+
+function addItems(e){
+    e.preventDefault();
+
+    const li=document.createElement('li');
+    const newItem=document.createTextNode(Input.value);
+    const delBtn=document.createElement('button');
+    
+    delBtn.className='btn btn-danger btn-sm float-right delete';
+    delBtn.appendChild(document.createTextNode('X'));
+    li.className='list-group-item';
+    li.appendChild(newItem);
+    li.appendChild(delBtn);
+    itemList.appendChild(li);
+}
+function delItems(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are You Sure?')){
+          var li = e.target.parentElement;
+          itemList.removeChild(li);
+        }
+      }
+}
