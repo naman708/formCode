@@ -1,0 +1,39 @@
+function getButter() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Got butter");
+    }, 1000);
+  });
+}
+
+function getColdDrinks() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Got cold drinks");
+    }, 1500);
+  });
+}
+
+// Using Promises
+getButter()
+  .then((butter) => {
+    console.log(butter);
+    return getColdDrinks();
+  })
+  .then((drinks) => {
+    console.log(drinks);
+  });
+
+// Using async/await
+async function getButterAndColdDrinks() {
+  try {
+    const butter = await getButter();
+    console.log(butter);
+    const drinks = await getColdDrinks();
+    console.log(drinks);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getButterAndColdDrinks();
