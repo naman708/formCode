@@ -58,9 +58,16 @@ function onsubmit(e){
        category: Input3.value,
         
     };
+    axios.post("https://crudcrud.com/api/a3ceffe337684174b8d98a9487d470e7",user)
+    .then((res)=>{
+        console.log(res)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 
-    const userJson = JSON.stringify(user);
-    localStorage.setItem(`${Input2.value}`, userJson);
+    //const userJson = JSON.stringify(user);
+    //localStorage.setItem(`${Input2.value}`, userJson);
 
     // Clear the input fields
     Input1.value = '';
