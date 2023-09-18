@@ -5,6 +5,7 @@ const Input3=document.getElementById('S1');
 const userList=document.getElementById('items');
 const card=document.getElementById('main1');
 main1.style.backgroundColor='#D3D3D3';
+const addAnExpenseBtn = document.querySelector('#game');
 form.addEventListener('submit',onsubmit)
 
 
@@ -19,27 +20,22 @@ function onsubmit(e){
        category: Input3.value,
         
     };
-    const li=document.createElement('li');
-    const delBtn=document.createElement('button');
-    const editBtn=document.createElement('button');
-    delBtn.className='btn btn-danger btn-sm float-right delete';
-    editBtn.className='btn btn-blue btn-sm float-right edit';
-    editBtn.style.backgroundColor='blue';
-    delBtn.appendChild(document.createTextNode('Delete'));
-    editBtn.appendChild(document.createTextNode('Edit'));
-    li.className='list-group-item';
-    li.id=Input2.value;
-    li.appendChild(document.createTextNode(`${Input1.value}-${Input2.value}-${Input3.value}`));
-    li.appendChild(editBtn);
-    li.appendChild(delBtn);
-    userList.appendChild(li);
-    axios.post("https://crudcrud.com/api/ac5ae4539a99489ebf64d6b6b1a4e377/data",user)
-    .then((res)=>{
-        console.log(res)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if (addAnExpenseBtn.id) {
+        axios.put("https://crudcrud.com/api/ac5ae4539a99489ebf64d6b6b1a4e377/data/"+ addAnExpenseBtn.id,user)
+        .then((res) => {
+            console.log(res);
+            user._id = addAnExpenseBtn.id;
+            display(user)
+        })
+        .catch((err) => console.log(err));
+        addAnExpenseBtn.id = '';
+    } else {
+        axios.post("https://crudcrud.com/api/ac5ae4539a99489ebf64d6b6b1a4e377/data",user)
+        .then((res) => display(res.data))
+        .catch((err) => console.log(err));
+    }
+   
+   
 
     //const userJson = JSON.stringify(user);
     //localStorage.setItem(`${Input2.value}`, userJson);
@@ -54,13 +50,38 @@ function onsubmit(e){
 }
 function display(user){
     const li=document.createElement('li');
+    //create edit and delete btn
     const delBtn=document.createElement('button');
     const editBtn=document.createElement('button');
+    //created class of edit and delete btn
     delBtn.className='btn btn-danger btn-sm float-right delete';
     editBtn.className='btn btn-blue btn-sm float-right edit';
     editBtn.style.backgroundColor='blue';
+    //add text to btn
     delBtn.appendChild(document.createTextNode('Delete'));
     editBtn.appendChild(document.createTextNode('Edit'));
+    // set id to del btn
+    let id =user._id;
+    //onclick event
+    delBtn.onclick = () => {
+        axios.delete("https://crudcrud.com/api/ac5ae4539a99489ebf64d6b6b1a4e377/data/"+ id)
+            .then(() => {
+                console.log(res);
+            })
+            .catch((error) => console.log(error));
+
+        // localStorage.removeItem(userData.amountData);
+        userList.removeChild(li);
+    };
+    editBtn.onclick=()=>{
+        addAnExpenseBtn.id = id;
+        userList.removeChild(li);
+
+     Input1.value = `${user.expenseAmount}`;
+     Input2.value = `${user.expenseDescription}`;
+     Input3.value = `${user.category}`;
+     
+    };
     li.className='list-group-item';
     li.id=Input2.value;
     li.appendChild(document.createTextNode(`${user.expenseAmount}-${user.expenseDescription}-${user.category}`));
